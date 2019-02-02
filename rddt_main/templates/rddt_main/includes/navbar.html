@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand mr-auto" href="{% url 'rddt_main:homepage' %}">Не reddit</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse flex-grow-0" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+                <a class="nav-item nav-link" href="{% url 'rddt_main:profile' %}">{{ user.get_username }}</a>
+                <a class="nav-item nav-link" href="{% url 'rddt_main:logout' %}">Выход</a>
+            {% else %}
+                <a class="nav-item nav-link" href="{% url 'rddt_main:login' %}">Войти</a>
+                <a class="nav-item nav-link" href="{% url 'rddt_main:register' %}">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

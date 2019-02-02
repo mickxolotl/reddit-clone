@@ -1,0 +1,10 @@
+{% extends 'rddt_main/layout.html' %}
+{% block title %}Авторизация{% endblock %}
+{% block body %}
+    <p class="h3">Авторизация</p>
+    <form method="post">
+        {% include 'rddt_main/includes/simple_form_snippet.html' %}
+
+        <button type="submit" class="btn btn-dark">Авторизация</button>
+    </form>
+{% endblock %}
