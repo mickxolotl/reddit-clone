@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import RedditUserCreationForm, AuthForm
-from django.contrib.auth import login, logout
+from .forms import RedditUserCreationForm, AuthForm, EditProfileForm
+from django.contrib.auth import login, logout, get_user
 from django.contrib import messages
 
 
@@ -54,4 +54,19 @@ def logout_page(request):
 
 
 def profile(request):
-    return render(request, 'rddt_main/profile.html')
+    if not request.user.is_authenticated:
+        return redirect('rddt_main:login')
+    user = get_user(request)
+
+    if request.method == 'POST':
+        form = EditProfileForm(data=request.POST, instance=user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Изменения сохранены')
+            return redirect('rddt_main:profile')
+
+    else:
+        form = EditProfileForm(instance=user)
+
+    return render(request, 'rddt_main/profile.html', context={"form": form})

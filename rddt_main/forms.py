@@ -1,6 +1,6 @@
 from .models import RedditUser
-from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
-from django.forms import Form, widgets
+from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm, UserChangeForm
+from django.forms import Form, ModelForm, widgets
 from django.forms.utils import ErrorList
 
 
@@ -36,3 +36,9 @@ class RedditUserCreationForm(CustomForm, UserCreationForm):
 
 class AuthForm(CustomForm, AuthenticationForm):
     pass
+
+
+class EditProfileForm(CustomForm, ModelForm):
+    class Meta:
+        model = RedditUser
+        fields = ['email', 'phone_number', 'about']
