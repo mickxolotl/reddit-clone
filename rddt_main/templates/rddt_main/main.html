@@ -1,4 +1,28 @@
 {% extends 'rddt_main/layout.html' %}
 {% block body %}
     <p>Последние посты</p>
+
+    {% if post_list %}
+
+        {% for post in post_list %}
+            {% include 'rddt_main/includes/post_snippet.html' %}
+        {% endfor %}
+
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'rddt_main:homepage' %}?page={{ page_obj.previous_page_number }}"><--</a>
+                {% endif %}
+                <span class="page-current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'rddt_main:homepage' %}?page={{ page_obj.next_page_number }}">--></a>
+                {% endif %}
+            </span>
+        </div>
+
+    {% else %}
+        <p>Постов нет</p>
+    {% endif %}
 {% endblock %}

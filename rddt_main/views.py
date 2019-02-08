@@ -3,16 +3,16 @@ from django.http import HttpResponse
 from .forms import RedditUserCreationForm, AuthForm, EditProfileForm
 from django.contrib.auth import login, logout, get_user
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.views.generic import ListView
+from . import models
 
 
-def homepage(request):
-    # messages.success(request, 'success')
-    # messages.info(request, 'info')
-    # messages.warning(request, 'warning')
-    # messages.error(request, 'error')
-    # messages.debug(request, 'debug')
-
-    return render(request, 'rddt_main/main.html')
+class PostListView(ListView):
+    model = models.Post
+    template_name = 'rddt_main/main.html'
+    context_object_name = "post_list"
+    paginate_by = 10
 
 
 def register(request):
@@ -65,7 +65,6 @@ def profile(request):
             form.save()
             messages.success(request, 'Изменения сохранены')
             return redirect('rddt_main:profile')
-
     else:
         form = EditProfileForm(instance=user)
 

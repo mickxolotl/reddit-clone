@@ -1,0 +1,18 @@
+<div class="border-left">
+    <div class="container">
+        <div class="small text-secondary">
+            <b class="text-primary">{{ comment.author.get_username }}</b> ответил {{ comment.publish_date }}
+        </div>
+        <div class="comment-body">
+            {{ comment.text }}
+        </div>
+
+    </div>
+    {% if comment.root_comments %}
+        <div class="pl-3">
+            {% for reply in comment.root_comments %}
+                {% include 'rddt_main/includes/comment_snippet.html' with comment=reply %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

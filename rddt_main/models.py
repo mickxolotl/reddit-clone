@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.utils import timezone
+from . import utils
 
 
 class RedditUser(AbstractBaseUser):
@@ -30,6 +31,14 @@ class Post(models.Model):
     publish_date = models.DateTimeField(default=timezone.now)
     text = models.TextField(max_length=5000)
 
+    @property
+    def root_comments(self):
+        return self.comment_set.filter(replied_comment=None)
+
+    @property
+    def comments_count_sign(self):
+        comments_count = self.comment_set.count()
+        return utils.plural_form(comments_count, ('комментарий', 'комментария', 'комментариев'))
 
 
 class Comment(models.Model):
@@ -38,3 +47,7 @@ class Comment(models.Model):
     text = models.TextField(max_length=1000)
     replied_post = models.ForeignKey(Post, models.CASCADE)
     replied_comment = models.ForeignKey('self', models.CASCADE, default=None, null=True)
+
+    @property
+    def root_comments(self):
+        return self.comment_set.all

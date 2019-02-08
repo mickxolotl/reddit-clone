@@ -1,0 +1,17 @@
+<div class="card mb-2">
+    <div class="card-header small text-secondary">
+        Опубликовано <b class="text-primary">{{ post.author.get_username }}</b> {{ post.publish_date }}
+    </div>
+    <div class="card-body">
+        <span class="card-text">{{ post.text }}</span>
+    </div>
+    <div class="card-footer py-1 small">
+        {% if post.comment_set.count %}
+            <a href="">{{ post.comments_count_sign }}</a>
+        {% else %}
+            Нет комментариев
+        {% endif %}
+
+        <a href="" class="border-left pl-1">Ответить</a>
+    </div>
+</div>
