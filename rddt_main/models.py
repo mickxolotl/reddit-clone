@@ -23,3 +23,18 @@ class RedditUser(AbstractBaseUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
+class Post(models.Model):
+    author = models.ForeignKey(RedditUser, models.CASCADE)
+    publish_date = models.DateTimeField(default=timezone.now)
+    text = models.TextField(max_length=5000)
+
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(RedditUser, models.CASCADE)
+    publish_date = models.DateTimeField(default=timezone.now)
+    text = models.TextField(max_length=1000)
+    replied_post = models.ForeignKey(Post, models.CASCADE)
+    replied_comment = models.ForeignKey('self', models.CASCADE, default=None, null=True)
