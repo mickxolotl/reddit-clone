@@ -1,3 +1,4 @@
+<a href="" class="post-link">
 <div class="card mb-2">
     <div class="card-header small text-secondary">
         Опубликовано <b class="text-primary">{{ post.author.get_username }}</b> {{ post.publish_date }}
@@ -9,9 +10,10 @@
         {% if post.comment_set.count %}
             <a href="">{{ post.comments_count_sign }}</a>
         {% else %}
-            Нет комментариев
+            <span class="pr-1">Нет комментариев</span>
         {% endif %}
 
         <a href="" class="border-left pl-1">Ответить</a>
     </div>
 </div>
+</a>

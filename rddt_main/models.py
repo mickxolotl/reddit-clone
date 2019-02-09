@@ -29,7 +29,10 @@ class RedditUser(AbstractBaseUser):
 class Post(models.Model):
     author = models.ForeignKey(RedditUser, models.CASCADE)
     publish_date = models.DateTimeField(default=timezone.now)
-    text = models.TextField(max_length=5000)
+    text = models.TextField(max_length=5000, verbose_name='Текст')
+
+    class Meta:
+        ordering = ('-publish_date', )
 
     @property
     def root_comments(self):

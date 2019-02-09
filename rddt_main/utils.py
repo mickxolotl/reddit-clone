@@ -7,4 +7,4 @@ def plural_form(n, forms):
     """
     form = forms[2 if (4 < n % 100 < 20) else plural_form_cases[min(n % 10, 5)]]
 
-    return f"{n}  {form}"
+    return f"{n} {form}"

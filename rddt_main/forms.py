@@ -1,6 +1,6 @@
-from .models import RedditUser
+from .models import RedditUser, Post, Comment
 from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm, UserChangeForm
-from django.forms import Form, ModelForm, widgets
+from django.forms import Form, ModelForm
 from django.forms.utils import ErrorList
 
 
@@ -42,3 +42,9 @@ class EditProfileForm(CustomForm, ModelForm):
     class Meta:
         model = RedditUser
         fields = ['email', 'phone_number', 'about']
+
+
+class NewPostForm(CustomForm, ModelForm):
+    class Meta:
+        model = Post
+        fields = ['text']

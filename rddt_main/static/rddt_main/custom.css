@@ -1,0 +1,18 @@
+.container > .post-link {
+    position: absolute;
+}
+
+.post-link {
+    color: inherit;
+    display: inline-block;
+}
+
+.post-link:hover {
+    /*color: #6c757d;*/
+    text-decoration: none;
+    color: inherit;
+}
+
+.card:hover{
+    border: 1px darkgray solid;
+}

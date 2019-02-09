@@ -1,6 +1,9 @@
 {% extends 'rddt_main/layout.html' %}
 {% block body %}
-    <p>Последние посты</p>
+    <div class="row mx-0 mb-3">
+    <span class="col px-0 pt-2">Последние посты</span>
+    <a href="{% url "rddt_main:newpost" %}" class="btn btn-dark">+</a>
+    </div>
 
     {% if post_list %}
 

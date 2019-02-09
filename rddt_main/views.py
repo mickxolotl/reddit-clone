@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import RedditUserCreationForm, AuthForm, EditProfileForm
+from .forms import RedditUserCreationForm, AuthForm, EditProfileForm, NewPostForm
 from django.contrib.auth import login, logout, get_user
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -69,3 +69,23 @@ def profile(request):
         form = EditProfileForm(instance=user)
 
     return render(request, 'rddt_main/profile.html', context={"form": form})
+
+
+def create_post(request):
+    if not request.user.is_authenticated:
+        return redirect('rddt_main:login')
+    # user = get_user(request)
+
+    if request.method == 'POST':
+        form = NewPostForm(data=request.POST)
+
+        if form.is_valid():
+            post = form.save(False)
+            post.author = request.user
+            post.save()
+            messages.success(request, 'Пост опубликован')
+            return redirect('rddt_main:homepage')
+    else:
+        form = NewPostForm()
+
+    return render(request, 'rddt_main/create_post.html', context={"form": form})
