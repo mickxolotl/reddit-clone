@@ -1,0 +1,29 @@
+{% extends 'rddt_main/layout.html' %}
+{% block body %}
+    <p>Опубликовано <b class="text-primary">{{ post.author.get_username }}</b> {{ post.publish_date }}
+
+    <div class="container">
+        {{ post.text|linebreaksbr }}
+    </div>
+    <hr>
+    <div id="comment" class="pb-3">
+
+        <form action="{% url 'rddt_main:post_comment' post.id %}" method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors.as_alert|safe }}
+
+            {% for field in comment_form %}
+                {{ field }}
+                {{ field.errors.as_feedback|safe }}
+            {% endfor %}
+
+            <button type="submit" class="btn btn-dark my-1 btn-sm">Комментировать</button>
+        </form>
+
+        <br id="comments">
+        {% for comment in post.root_comments %}
+            {% include 'rddt_main/includes/comment_snippet.html' %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+<form action="{% url 'rddt_main:comment_reply' post.id %}" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors.as_alert|safe }}
+
+    {% for field in comment_form %}
+        {{ field }}
+        {{ field.errors.as_feedback|safe }}
+    {% endfor %}
+
+    <div class="my-1">
+        <button type="submit" class="btn btn-dark btn-sm">Ответить</button>
+        <button type="button" class="btn btn-dark btn-sm" onclick="close_form(this)">×</button>
+    </div>
+
+</form>

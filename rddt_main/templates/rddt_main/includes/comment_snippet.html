@@ -1,13 +1,17 @@
 <div class="border-left">
-    <div class="container">
+    <div class="container pb-1">
         <div class="small text-secondary">
             <b class="text-primary">{{ comment.author.get_username }}</b> ответил {{ comment.publish_date }}
         </div>
         <div class="comment-body">
-            {{ comment.text }}
+            {{ comment.text|linebreaksbr }}
         </div>
 
+        <a href="{% url 'rddt_main:comment_reply' post.id %}?replied_comment={{ comment.id }}&nojs=1"
+           onclick="reply(this, {{ comment.id }}); return false"
+           class="small">Ответить</a>
     </div>
+
     {% if comment.root_comments %}
         <div class="pl-3">
             {% for reply in comment.root_comments %}

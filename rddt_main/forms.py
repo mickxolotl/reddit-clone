@@ -1,7 +1,9 @@
-from .models import RedditUser, Post, Comment
-from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UsernameField, AuthenticationForm
 from django.forms import Form, ModelForm
 from django.forms.utils import ErrorList
+from django.forms.widgets import HiddenInput, Textarea
+
+from .models import RedditUser, Post, Comment
 
 
 class CustomErrorList(ErrorList):
@@ -48,3 +50,11 @@ class NewPostForm(CustomForm, ModelForm):
     class Meta:
         model = Post
         fields = ['text']
+
+
+class CommentForm(CustomForm, ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text', 'replied_comment']
+        widgets = {'replied_comment': HiddenInput,
+                   'text': Textarea({'rows': 3})}

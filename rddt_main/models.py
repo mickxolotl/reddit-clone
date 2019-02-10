@@ -49,7 +49,10 @@ class Comment(models.Model):
     publish_date = models.DateTimeField(default=timezone.now)
     text = models.TextField(max_length=1000)
     replied_post = models.ForeignKey(Post, models.CASCADE)
-    replied_comment = models.ForeignKey('self', models.CASCADE, default=None, null=True)
+    replied_comment = models.ForeignKey('self', models.CASCADE, default=None, null=True, blank=True)
+
+    class Meta:
+        ordering = ('publish_date', )
 
     @property
     def root_comments(self):

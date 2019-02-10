@@ -1,19 +1,19 @@
-<a href="" class="post-link">
+<a href="{% url "rddt_main:post" post.id %}" class="post-link">
 <div class="card mb-2">
     <div class="card-header small text-secondary">
         Опубликовано <b class="text-primary">{{ post.author.get_username }}</b> {{ post.publish_date }}
     </div>
     <div class="card-body">
-        <span class="card-text">{{ post.text }}</span>
+        <span class="card-text">{{ post.text|linebreaksbr|truncatewords_html:30 }}</span>
     </div>
     <div class="card-footer py-1 small">
         {% if post.comment_set.count %}
-            <a href="">{{ post.comments_count_sign }}</a>
+            <a href="{% url "rddt_main:post" post.id %}#comments">{{ post.comments_count_sign }}</a>
         {% else %}
             <span class="pr-1">Нет комментариев</span>
         {% endif %}
 
-        <a href="" class="border-left pl-1">Ответить</a>
+        <a href="{% url "rddt_main:post" post.id %}#comment" class="border-left pl-1">Комментировать</a>
     </div>
 </div>
 </a>

@@ -1,9 +1,7 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .forms import RedditUserCreationForm, AuthForm, EditProfileForm, NewPostForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import RedditUserCreationForm, AuthForm, EditProfileForm, NewPostForm, CommentForm
 from django.contrib.auth import login, logout, get_user
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.views.generic import ListView
 from . import models
 
@@ -89,3 +87,54 @@ def create_post(request):
         form = NewPostForm()
 
     return render(request, 'rddt_main/create_post.html', context={"form": form})
+
+
+def post_page(request, post_id):
+    post = get_object_or_404(models.Post, pk=post_id)
+    return render(request, 'rddt_main/post.html', context={
+        "post": post,
+        'comment_form': CommentForm()
+    })
+
+
+def post_comment(request, post_id):
+    if request.method == 'POST':
+        post = get_object_or_404(models.Post, pk=post_id)
+        form = CommentForm(data=request.POST)
+
+        if form.is_valid():
+            comment = form.save(False)
+            comment.author = request.user
+            comment.replied_post = post
+            comment.save()
+            messages.success(request, 'Комментарий опубликован')
+        else:
+            messages.error(request, 'Ошибка при публикации комментария')
+
+    return redirect('rddt_main:post', post_id)
+
+
+def comment_reply(request, post_id):
+    post = get_object_or_404(models.Post, pk=post_id)
+
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+
+        if form.is_valid():
+            comment = form.save(False)
+            comment.author = request.user
+            comment.replied_post = post
+            comment.save()
+            messages.success(request, 'Комментарий опубликован')
+        else:
+            messages.error(request, 'Ошибка при публикации комментария\n%s' % form.errors)
+
+        return redirect('rddt_main:post', post_id)
+
+    else:
+        data = request.GET.dict()
+        form = CommentForm(initial=data)
+        if data.get('nojs', 0) == '1':
+            return render(request, 'rddt_main/reply_form_full.html', context={'comment_form': form})
+
+        return render(request, 'rddt_main/reply_form_snippet.html', context={'comment_form': form, 'post': post})
