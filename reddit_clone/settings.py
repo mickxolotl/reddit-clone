@@ -25,7 +25,7 @@ SECRET_KEY = '2itj_d(k!@9**ao0+)ih4((3*p$n+^1&k2d_j0*7^nxk71hjb-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'definitelynotreddit.tk']
 
 
 # Application definition
@@ -122,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 MESSAGE_LEVEL = 0
 

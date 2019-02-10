@@ -98,6 +98,9 @@ def post_page(request, post_id):
 
 
 def post_comment(request, post_id):
+    if not request.user.is_authenticated:
+        return redirect('rddt_main:login')
+
     if request.method == 'POST':
         post = get_object_or_404(models.Post, pk=post_id)
         form = CommentForm(data=request.POST)
@@ -118,6 +121,9 @@ def comment_reply(request, post_id):
     post = get_object_or_404(models.Post, pk=post_id)
 
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('rddt_main:login')
+
         form = CommentForm(data=request.POST)
 
         if form.is_valid():

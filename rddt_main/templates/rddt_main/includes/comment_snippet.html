@@ -7,9 +7,11 @@
             {{ comment.text|linebreaksbr }}
         </div>
 
+        {% if user.is_authenticated %}
         <a href="{% url 'rddt_main:comment_reply' post.id %}?replied_comment={{ comment.id }}&nojs=1"
            onclick="reply(this, {{ comment.id }}); return false"
            class="small">Ответить</a>
+        {% endif %}
     </div>
 
     {% if comment.root_comments %}

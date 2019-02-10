@@ -7,7 +7,7 @@
     </div>
     <hr>
     <div id="comment" class="pb-3">
-
+        {% if user.is_authenticated %}
         <form action="{% url 'rddt_main:post_comment' post.id %}" method="post">
             {% csrf_token %}
             {{ form.non_field_errors.as_alert|safe }}
@@ -19,6 +19,7 @@
 
             <button type="submit" class="btn btn-dark my-1 btn-sm">Комментировать</button>
         </form>
+        {% endif %}
 
         <br id="comments">
         {% for comment in post.root_comments %}

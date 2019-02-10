@@ -12,8 +12,9 @@
         {% else %}
             <span class="pr-1">Нет комментариев</span>
         {% endif %}
-
-        <a href="{% url "rddt_main:post" post.id %}#comment" class="border-left pl-1">Комментировать</a>
+        {% if user.is_authenticated %}
+            <a href="{% url "rddt_main:post" post.id %}#comment" class="border-left pl-1">Комментировать</a>
+        {% endif %}
     </div>
 </div>
 </a>
