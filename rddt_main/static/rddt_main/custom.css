@@ -19,3 +19,7 @@
 a.small {
     display: inherit;
 }
+
+.container {
+    overflow-wrap: break-word;
+}

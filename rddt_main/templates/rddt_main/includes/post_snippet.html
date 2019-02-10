@@ -4,7 +4,7 @@
         Опубликовано <b class="text-primary">{{ post.author.get_username }}</b> {{ post.publish_date }}
     </div>
     <div class="card-body">
-        <span class="card-text">{{ post.text|linebreaksbr|truncatewords_html:30 }}</span>
+        <span class="card-text">{{ post.text|linebreaksbr|truncatechars_html:300 }}</span>
     </div>
     <div class="card-footer py-1 small">
         {% if post.comment_set.count %}
