@@ -1,5 +1,5 @@
 .container > .post-link {
-    position: absolute;
+    display: inherit;
 }
 
 .post-link {
