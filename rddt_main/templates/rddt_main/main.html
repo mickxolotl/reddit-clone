@@ -11,18 +11,22 @@
             {% include 'rddt_main/includes/post_snippet.html' %}
         {% endfor %}
 
-        <div class="pagination">
-            <span class="page-links">
+        <div class="pagination text-center">
+        <div class="col">
+            <span class="page-links btn-group btn-group-sm">
                 {% if page_obj.has_previous %}
-                    <a href="{% url 'rddt_main:homepage' %}?page={{ page_obj.previous_page_number }}"><--</a>
+                    <a href="{% url 'rddt_main:homepage' %}?page={{ page_obj.previous_page_number }}"
+                       class="btn btn-dark">⇦</a>
                 {% endif %}
-                <span class="page-current">
+                <span class="page-current bg-dark text-light px-2 rounded">
                     Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="{% url 'rddt_main:homepage' %}?page={{ page_obj.next_page_number }}">--></a>
+                    <a href="{% url 'rddt_main:homepage' %}?page={{ page_obj.next_page_number }}"
+                       class="btn btn-dark">⇨</a>
                 {% endif %}
             </span>
+        </div>
         </div>
 
     {% else %}

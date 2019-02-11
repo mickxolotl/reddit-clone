@@ -23,3 +23,8 @@ a.small {
 .container {
     overflow-wrap: break-word;
 }
+
+.page-current {
+    line-height: 2rem;
+    margin: 0 -4px;
+}

@@ -133,7 +133,7 @@ def comment_reply(request, post_id):
             comment.save()
             messages.success(request, 'Комментарий опубликован')
         else:
-            messages.error(request, 'Ошибка при публикации комментария\n%s' % form.errors)
+            messages.error(request, 'Ошибка при публикации комментария')
 
         return redirect('rddt_main:post', post_id)
 
