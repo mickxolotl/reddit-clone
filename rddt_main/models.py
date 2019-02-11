@@ -6,7 +6,10 @@ from . import utils
 
 
 class RedditUser(AbstractBaseUser):
-    username = models.CharField(max_length=30, unique=True, verbose_name='Имя пользователя', error_messages={
+    username_regex = RegexValidator(r'^[\dA-zА-я_\-\.]+$',
+                                    'Имя пользователя должно состоять из цифр, латиницы, кириллицы или знаков "_-."')
+    username = models.CharField(max_length=30, unique=True, validators=[username_regex],
+                                verbose_name='Имя пользователя', error_messages={
         'unique': "Пользователь с таким именем уже существует",
     })
     email = models.EmailField(max_length=100, verbose_name='Электронная почта', blank=True)
