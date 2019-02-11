@@ -1,8 +1,10 @@
 <a href="{% url "rddt_main:post" post.id %}" class="post-link">
 <div class="card mb-2">
-    <div class="card-header small text-secondary">
-        Опубликовано <b class="text-primary">{{ post.author.get_username }}</b> {{ post.publish_date }}
+    <div class="card-header small text-secondary row container mx-0">
+    <span class="col-auto pl-0 pr-1"> Опубликовано <b class="text-primary">{{ post.author.get_username }}</b></span>
+    <span class="col-auto p-0">{{ post.publish_date }}</span>
     </div>
+
     <div class="card-body">
         <span class="card-text">{{ post.text|linebreaksbr|truncatechars_html:300 }}</span>
     </div>

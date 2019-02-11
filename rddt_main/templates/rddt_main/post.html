@@ -1,6 +1,9 @@
 {% extends 'rddt_main/layout.html' %}
 {% block body %}
-    <p>Опубликовано <b class="text-primary">{{ post.author.get_username }}</b> {{ post.publish_date }}
+    <p class="row container border-bottom mx-0 px-0">
+    <span class="col-auto pl-0 pr-1"> Опубликовано <b class="text-primary">{{ post.author.get_username }}</b></span>
+    <span class="col-auto p-0">{{ post.publish_date }}</span>
+    </p>
 
     <div class="container">
         {{ post.text|linebreaksbr }}
