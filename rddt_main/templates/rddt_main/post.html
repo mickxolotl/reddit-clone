@@ -5,10 +5,10 @@
     <span class="col-auto p-0">{{ post.publish_date }}</span>
     </p>
 
-    <div class="container">
+    <div class="container mb-4">
         {{ post.text|linebreaksbr }}
     </div>
-    <hr>
+
     <div id="comment" class="pb-3">
         {% if user.is_authenticated %}
         <form action="{% url 'rddt_main:post_comment' post.id %}" method="post">
