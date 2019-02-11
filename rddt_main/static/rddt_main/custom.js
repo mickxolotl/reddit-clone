@@ -5,8 +5,12 @@ function reply(obj, comment_id) {
     .then((response) => response.text())
     .then((html) => {
         obj.hidden = true;
+        var parent = obj.parentElement;
         var new_html = '<div>' + obj.outerHTML + html + '</div>';
         obj.outerHTML = new_html;
+        var text_field = parent.getElementsByClassName('form-control')[0];
+        // console.log(text_field);
+        text_field.focus();
     })
     .catch((error) => {
         console.warn(error);
